@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"authentication-service/utils"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	utils.InitConfig()
 }
