@@ -1,35 +1,18 @@
-# Variáveis
-APP_NAME=auth-api
-# PORT=8080
-# DB_URL=postgres://seu_usuario:sua_senha@localhost:5432/auth_db?sslmode=disable
+n =
+text =
+migrateup:
+	migrate -path infra/database/postgres/migrations -database "postgres://postgres:postgres@127.0.0.1:5432/auth-api?sslmode=disable" -verbose up $(n)
 
-# Rodar a aplicação localmente
-run:
-	go run main.go
+migratedown:
+	migrate -path infra/database/postgres/migrations -database "postgres://postgres:postgres@127.0.0.1:5432/auth-api?sslmode=disable" -verbose down $(n)	
 
-# Build do binário
-build:
-	go build -o $(APP_NAME) main.go
+migratecreate:
+	migrate create -ext sql -dir infra/database/postgres/migrations -seq $(text) 
 
-# Rodar testes
-test:
-	go test ./... -v
+swaggergenerate:
+	swagger generate spec --scan-models  -o ./1-api/swagger/swagger.json
 
-# Rodar a aplicação com Docker
-docker-up:
-	docker-compose up -d
+swaggervalidate: 
+	swagger validate ./1-api/swagger/swagger.json
 
-docker-down:
-	docker-compose down
-
-# Criar banco e aplicar migrations (usando Goose, Gorm ou outra lib)
-migrate:
-	go run cmd/migrate.go
-
-# Limpar binário
-clean:
-	rm -f $(APP_NAME)
-
-# Rodar linter
-lint:
-	golangci-lint run
+.PHONY: migrateup migratedown migratecreate	swaggergenerate swaggervalidate

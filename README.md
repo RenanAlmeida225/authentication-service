@@ -8,7 +8,7 @@ API de autenticação construída com Go, Gin e PostgreSQL. Suporta registro de 
 ## Tecnologias
 
 - **Go** – linguagem principal
-- **Gin** – framework web
+- **Gorilla Mux** – framework web
 - **PostgreSQL** – banco de dados relacional
 - **JWT** – autenticação baseada em token
 - **Docker** – para containerização (opcional)
